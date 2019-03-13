@@ -80,7 +80,7 @@
                     margin-right: 22px;
                 }
 
-                & button {
+                & input[type='submit'] {
                     min-width: 215px;
                     height: 42px;
                     border-radius: 5px;

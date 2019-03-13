@@ -12,8 +12,26 @@ import Edit from '../../theme/assets/Edit';
 import Star from '../../theme/assets/Star';
 
 export default class Task extends PureComponent {
+
+    _removeTodo = () => {
+        const { actions, id } = this.props;
+
+        actions.removeTodoAsync(id);
+    };
+    _togglePriorityTodo = () => {
+        const { actions, id, message, completed, favorite } = this.props;
+        const newFavorite = !favorite;
+
+        actions.togglePriorityTodoAsync([{ id, message, completed, favorite: newFavorite }]);
+    };
+    _toggleCompletedTodo = () => {
+        const { actions, id, message, completed, favorite } = this.props;
+        const newCompleted = !completed;
+
+        actions.toggleCompletedTodoAsync([{ id, message, favorite, completed: newCompleted }]);
+    };
     render () {
-        const { message, completed } = this.props;
+        const { message, completed, favorite } = this.props;
 
         const styles = cx(Styles.task, {
             [Styles.completed]: completed,
@@ -23,20 +41,23 @@ export default class Task extends PureComponent {
             <li className = { styles }>
                 <div className = { Styles.content }>
                     <Checkbox
+                        checked = { completed }
                         inlineBlock
                         className = { Styles.toggleTaskCompletedState }
                         color1 = '#3B8EF3'
                         color2 = '#FFF'
+                        onClick = { this._toggleCompletedTodo }
                     />
                     <input disabled type = 'text' value = { message } />
                 </div>
                 <div className = { Styles.actions }>
                     <Star
-                        checked
+                        checked = { favorite }
                         inlineBlock
                         className = { Styles.toggleTaskFavoriteState }
                         color1 = '#3B8EF3'
                         color2 = '#000'
+                        onClick = { this._togglePriorityTodo }
                     />
                     <Edit
                         inlineBlock
@@ -50,6 +71,7 @@ export default class Task extends PureComponent {
                         className = { Styles.removeTask }
                         color1 = '#3B8EF3'
                         color2 = '#000'
+                        onClick = { this._removeTodo }
                     />
                 </div>
             </li>
