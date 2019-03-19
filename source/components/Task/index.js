@@ -1,5 +1,7 @@
 // Core
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 
 // Instruments
@@ -38,7 +40,7 @@ export default class Task extends PureComponent {
         });
 
         return (
-            <li className = { styles }>
+            <section className = { styles }>
                 <div className = { Styles.content }>
                     <Checkbox
                         checked = { completed }
@@ -48,7 +50,12 @@ export default class Task extends PureComponent {
                         color2 = '#FFF'
                         onClick = { this._toggleCompletedTodo }
                     />
-                    <input disabled type = 'text' value = { message } />
+                    <input
+                        disabled
+                        type = 'text'
+                        value = { message }
+                        onKeyUp = { this._editTodo }
+                    />
                 </div>
                 <div className = { Styles.actions }>
                     <Star
@@ -65,6 +72,7 @@ export default class Task extends PureComponent {
                         className = { Styles.updateTaskMessageOnClick }
                         color1 = '#3B8EF3'
                         color2 = '#000'
+                        onClick = { this._startEditTodo }
                     />
                     <Remove
                         inlineBlock
@@ -74,7 +82,7 @@ export default class Task extends PureComponent {
                         onClick = { this._removeTodo }
                     />
                 </div>
-            </li>
+            </section>
         );
     }
 }

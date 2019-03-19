@@ -16,7 +16,7 @@ export function* togglePriorityTodo ({ payload: newTodoData }) {
         if (response.status !== 200) {
             throw new Error(message);
         }
-        yield put(todosActions.togglePriorityTodo(todo));
+        yield put(todosActions.togglePriorityTodo(todo[0]));
     } catch (error) {
         yield put(uiActions.emitError(error, 'togglePriorityTodo worker'));
     } finally {

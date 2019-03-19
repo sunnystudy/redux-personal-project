@@ -4,14 +4,16 @@ import { Formik, Form, Field } from 'formik';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { toJS } from 'immutable';
+import FlipMove from 'react-flip-move';
 
 // Instruments
 import Styles from './styles.m.css';
-import { tasks } from './tasks';
 import { todoShape } from '../../bus/forms/shapes';
+import { getFilteredTodos } from '../../instruments/helpers';
 
 //Actions
 import { todosActions } from "../../bus/todos/actions";
+import { filterActions } from "../../bus/filter/actions";
 
 // Components
 import Task from '../Task';
@@ -21,15 +23,14 @@ import Checkbox from '../../theme/assets/Checkbox';
 
 const mapStateToProps = (state) => {
     return {
-        todos: state.todos,
+        todos: getFilteredTodos(state.todos, state.filter),
         allCompleted: state.todos.every((item) => (item.get("completed") === true)),
-        showAllCompletedCheckBox: !state.todos.isEmpty()
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        actions: bindActionCreators({ ...todosActions }, dispatch),
+        actions: bindActionCreators({ ...todosActions, ...filterActions }, dispatch),
     };
 };
 
@@ -57,6 +58,7 @@ export default class Scheduler extends Component {
 
         this.props.actions.createTodoAsync(todoText);
     };
+
     _allCompletedTodos = () => {
         const { allCompleted, todos } = this.props;
 
@@ -65,6 +67,7 @@ export default class Scheduler extends Component {
         }
         this.props.actions.allCompletedTodosAsync((todos).map((item)=> ((item.update("completed", value => true)).toJS())).toArray());
     };
+
     _submitFormOnEnter = (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -73,8 +76,28 @@ export default class Scheduler extends Component {
         }
     };
 
+    _searchTodo = (event) => {
+        this.props.actions.searchTodo(event.target.value);
+    };
+
+    _getAllCompletedView = () => {
+        const { allCompleted, todos } = this.props;
+
+        return !todos.isEmpty() ? (
+            <footer>
+                <Checkbox
+                    color1 = '#363636'
+                    color2 = '#fff'
+                    checked = { allCompleted }
+                    onClick = { this._allCompletedTodos }
+                />
+                <span className = { Styles.completeAllTasks } >
+                        Все задачи выполнены
+                </span>
+            </footer> ) : null;
+    };
     render () {
-        const { actions, todos, allCompleted, showAllCompletedCheckBox } = this.props;
+        const { actions, todos } = this.props;
 
         const todoList = todos.map((task) => (
             <Catcher key = { task.get('id') }>
@@ -90,36 +113,16 @@ export default class Scheduler extends Component {
             </Catcher>
         ));
 
-        const allDoneCheckBox = <div>
-            <Checkbox
-                color1 = '#363636'
-                color2 = '#fff'
-                checked = { allCompleted }
-                onClick = { this._allCompletedTodos }
-            />
-            <span className = { Styles.completeAllTasks } >
-                            Все задачи выполнены
-                            </span>
-        </div>
-
+        const showAllCompletedCheckBox = this._getAllCompletedView();
 
         return (
             <section className = { Styles.scheduler }>
                 <main>
                     <header>
                         <h1>Планировщик задач</h1>
-                        <input placeholder = 'Поиск' type = 'search' />
+                        <input placeholder = 'Поиск' type = 'search' onKeyUp = { this._searchTodo }/>
                     </header>
                     <section>
-                        {/* <form>
-                            <input
-                                className = { Styles.createTask }
-                                maxLength = { 50 }
-                                placeholder = 'Описание моей новой задачи'
-                                type = 'text'
-                            />
-                            <button>Добавить задачу</button>
-                        </form> */}
                         <Formik
                             initialValues = { todoShape.shape }
                             ref = { this.formikForm }
@@ -131,6 +134,7 @@ export default class Scheduler extends Component {
                                                 className = { Styles.createTask }
                                                 component = 'input'
                                                 name = 'todoText'
+                                                maxLength = { 50 }
                                                 placeholder = 'Описание моей новой задачи'
                                                 type = 'text'
                                                 onKeyPress = { this._submitFormOnEnter }
@@ -144,12 +148,10 @@ export default class Scheduler extends Component {
                             onSubmit = { this._submitForm }
                         />
                         <div className = { Styles.overlay }>
-                            <ul>{todoList}</ul>
+                            <FlipMove>{todoList}</FlipMove>
                         </div>
                     </section>
-                    <footer>
-                        { showAllCompletedCheckBox ?         allDoneCheckBox          : null }
-                    </footer>
+                        { showAllCompletedCheckBox }
                 </main>
             </section>
         );

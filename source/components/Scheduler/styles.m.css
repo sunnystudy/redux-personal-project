@@ -102,13 +102,20 @@
                 }
             }
 
-            & ul {
-                min-height: 370px;
-                max-height: 370px;
-                overflow: scroll;
+            & .overlay {
 
-                &::-webkit-scrollbar {
-                    display: none;
+                & >div {
+                    min-height: 370px;
+                    max-height: 370px;
+                    overflow: scroll;
+
+                    & section{
+                        margin-bottom: 10px;
+                    }
+
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
                 }
             }
         }

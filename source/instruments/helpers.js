@@ -18,3 +18,7 @@ export function sorter (a, b) {
         }
     }
 }
+
+export function getFilteredTodos (todos, filter) {
+    return filter !== '' ? todos.filter((item) => item.get("message").includes(filter)).sort(sorter) : todos.sort(sorter);
+}
