@@ -4,7 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { toJS } from 'immutable';
-import FlipMove from 'react-flip-move';
+import posed, { PoseGroup } from "react-pose";
 
 // Instruments
 import Styles from './styles.m.css';
@@ -20,6 +20,20 @@ import Task from '../Task';
 import Catcher from '../Catcher';
 
 import Checkbox from '../../theme/assets/Checkbox';
+
+const Item = posed.li({
+    flip: {
+        transition: {
+            scale: {
+                type: 'spring',
+                velocity: 1
+            },
+            default: {
+                type: 'spring'
+            }
+        }
+    }
+});
 
 const mapStateToProps = (state) => {
     return {
@@ -100,17 +114,20 @@ export default class Scheduler extends Component {
         const { actions, todos } = this.props;
 
         const todoList = todos.map((task) => (
+            <Item key={ task.get('id') }>
             <Catcher key = { task.get('id') }>
-            <Task
-                actions = { actions }
-                completed = { task.get('completed') }
-                favorite = { task.get('favorite') }
-                id = { task.get('id') }
-                key = { task.get('id') }
-                message = { task.get('message') }
-                { ...task }
-            />
+
+                    <Task
+                        actions = { actions }
+                        completed = { task.get('completed') }
+                        favorite = { task.get('favorite') }
+                        id = { task.get('id') }
+                        key = { task.get('id') }
+                        message = { task.get('message') }
+                        { ...task }
+                    />
             </Catcher>
+            </Item>
         ));
 
         const showAllCompletedCheckBox = this._getAllCompletedView();
@@ -148,7 +165,7 @@ export default class Scheduler extends Component {
                             onSubmit = { this._submitForm }
                         />
                         <div className = { Styles.overlay }>
-                            <FlipMove>{todoList}</FlipMove>
+                            <PoseGroup>{todoList}</PoseGroup>
                         </div>
                     </section>
                         { showAllCompletedCheckBox }
