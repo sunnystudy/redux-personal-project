@@ -35,11 +35,9 @@ export default class Task extends PureComponent {
 
     textInput = createRef();
 
-    componentDidMount () {
-        this.refs.textInput.value = this.refs.textInput.value;
-        this.textInput.current.focus()
-        //console.log(this.textInput.current.focus());
-    }
+    componentDidUpdate = () => {
+        this.textInput.current.focus();
+    };
 
     _removeTodo = () => {
         const { actions, id } = this.props;
@@ -62,9 +60,8 @@ export default class Task extends PureComponent {
     _editTodo = () => {
         const { actions, id, message, favorite, completed, edit } = this.props;
         if (edit.get("id") === id){
-            actions.cancelEditTodo();
+            actions.stopEditTodo();
         } else {
-            this.textInput.current.focus();
             actions.startEditTodo({ id, message, favorite, completed});
         }
 
@@ -72,34 +69,35 @@ export default class Task extends PureComponent {
 
     _editingTodo = (event) => {
 
-        console.log('edit', event.target.value);
-        const { actions, id, message, favorite, completed, edit, newMessage } = this.props;
+        const { actions, id, message, favorite, completed } = this.props;
 
-        if (event.key === 'Enter') {
-            //  actions.editTodo({ id, message, favorite, completed });
+        if (event.key === 'Enter' && event.target.value !== '') {
+            actions.updateTodoAsync([{ id, message: event.target.value, favorite, completed}]);
         } else if (event.key === 'Escape') {
-            actions.cancelEditTodo();
+            actions.stopEditTodo();
         } else {
-            console.log(event.target.value);
-            //  actions.startEditTodo({ id, message: event.target.value, favorite, completed, editing: true });
+            actions.startEditTodo({ id, message: event.target.value, favorite, completed });
         }
 
     };
 
     _changeTodoMessage = (event) => {
-        console.log(event.target.value);
+        const { actions, id, favorite, completed } = this.props;
 
+        actions.startEditTodo({ id, message: event.target.value, favorite, completed});
     };
 
     render () {
+
         const { message, completed, favorite, id, edit } = this.props;
+
         const styles = cx(Styles.task, {
             [Styles.completed]: completed,
         });
         const editingTodo = edit.get("id") === id;
+
         const label = editingTodo ? edit.get("message") : message;
-        // if (editingTodo)
-        //      console.log(editingTodo, message, label);
+
         return (
             <section className = { styles }>
                 <div className = { Styles.content }>
@@ -115,7 +113,7 @@ export default class Task extends PureComponent {
                         disabled = { !editingTodo }
                         type = 'text'
                         ref = { this.textInput }
-                        value={ message }
+                        value={ label }
                         maxLength = { 50 }
                         onChange = { this._changeTodoMessage }
                         onKeyUp = { this._editingTodo }

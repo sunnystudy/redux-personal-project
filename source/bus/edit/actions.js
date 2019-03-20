@@ -9,9 +9,9 @@ export const editActions = {
             payload: todo,
         };
     },
-    cancelEditTodo: () => {
+    stopEditTodo: () => {
         return {
-            type: types.CANCEL_EDIT_TODO,
+            type: types.STOP_EDIT_TODO,
         };
     },
 };

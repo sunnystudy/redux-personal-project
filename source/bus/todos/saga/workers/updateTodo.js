@@ -18,7 +18,7 @@ export function* updateTodo ({ payload: newTodoData }) {
             throw new Error(message);
         }
         yield put(todosActions.updateTodo(todo[0]));
-        yield put(editActions.cancelEditTodo());
+        yield put(editActions.stopEditTodo());
     } catch (error) {
         yield put(uiActions.emitError(error, 'updateTodo worker'));
     } finally {

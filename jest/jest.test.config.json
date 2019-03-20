@@ -18,6 +18,11 @@
         "<rootDir>/source/views/index.js",
         "<rootDir>/source/components/index.js",
         "<rootDir>/source/bus/intl/sagas/workers/index.js",
+        "<rootDir>/source/bus/todos/**/*.{js,jsx}",
+        "<rootDir>/source/bus/edit/**/*.{js,jsx}",
+        "<rootDir>/source/bus/filter/**/*.{js,jsx}",
+        "<rootDir>/source/bus/ui/**/*.{js,jsx}",
+
         "<rootDir>/source/components/index.js"
     ],
     "coverageThreshold": {
