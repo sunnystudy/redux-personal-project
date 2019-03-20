@@ -3,13 +3,13 @@ export function getDisplayName (WrappedComponent) {
 }
 
 export function sorter (a, b) {
-    if (!a.get("completed") *10 + a.get("favorite") > !b.get("completed")*10 +b.get("favorite")) {
+    if (!a.get("completed") * 10 + a.get("favorite") > !b.get("completed") * 10 + b.get("favorite")) {
         return -1;
     }
-    if (!a.get("completed")*10 + a.get("favorite") < !b.get("completed")*10 + b.get("favorite")) {
+    if (!a.get("completed") * 10 + a.get("favorite") < !b.get("completed") * 10 + b.get("favorite")) {
         return 1;
     }
-    if (!a.get("completed")*10 + a.get("favorite") === !b.get("completed")*10 + b.get("favorite")) {
+    if (!a.get("completed") * 10 + a.get("favorite") === !b.get("completed") * 10 + b.get("favorite")) {
         if (a.get("created") >= b.get("created")) {
             return -1;
         }

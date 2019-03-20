@@ -1,4 +1,5 @@
 export const types = {
     //Sync
-    SEARCH_TODO: 'SEARCH_TODO',
+    START_EDIT_TODO:  'START_EDIT_TODO',
+    CANCEL_EDIT_TODO: 'CANCEL_EDIT_TODO',
 };

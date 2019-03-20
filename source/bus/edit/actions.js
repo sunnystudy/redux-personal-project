@@ -1,12 +1,17 @@
 //Types
 import { types } from "./types";
 
-export const filterActions = {
+export const editActions = {
     //Sync
-    searchTodo: (query) => {
+    startEditTodo: (todo) => {
         return {
-            type:    types.SEARCH_TODO,
-            payload: query,
+            type:    types.START_EDIT_TODO,
+            payload: todo,
+        };
+    },
+    cancelEditTodo: () => {
+        return {
+            type: types.CANCEL_EDIT_TODO,
         };
     },
 };

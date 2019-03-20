@@ -21,6 +21,12 @@ export const todosActions = {
             payload: todoId,
         };
     },
+    updateTodo: (newTodoData) => {
+        return {
+            type:    types.UPDATE_TODO,
+            payload: newTodoData,
+        };
+    },
     togglePriorityTodo: (newTodoData) => {
         return {
             type:    types.TOGGLE_PRIORITY_TODO,
@@ -66,6 +72,12 @@ export const todosActions = {
     toggleCompletedTodoAsync: (newTodoData) => {
         return {
             type:    types.TOGGLE_COMPLETED_TODO_ASYNC,
+            payload: newTodoData,
+        };
+    },
+    updateTodoAsync: (newTodoData) => {
+        return {
+            type:    types.UPDATE_TODO_ASYNC,
             payload: newTodoData,
         };
     },

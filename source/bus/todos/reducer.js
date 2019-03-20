@@ -14,6 +14,8 @@ export const todosReducer = (state = initialState, action) => {
             return state.push(fromJS(action.payload));
         case types.REMOVE_TODO:
             return state.filterNot((item) => item.get("id") === action.payload);
+        case types.UPDATE_TODO:
+            return state.map((item) => item.get("id") === action.payload.id ? item.update("message", value => action.payload.message) : item);
         case types.TOGGLE_PRIORITY_TODO:
             return state.map((item) => item.get("id") === action.payload.id ? item.update("favorite", value => !item.get("favorite")) : item);
         case types.TOGGLE_COMPLETED_TODO:

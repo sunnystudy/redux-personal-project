@@ -1,12 +1,17 @@
+//Core
+import { fromJS, Map } from 'immutable';
+
 //Types
 import { types } from "./types";
 
-const initialState = '';
+const initialState = Map();
 
-export const filterReducer = (state = initialState, action) => {
+export const editReducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.SEARCH_TODO:
-            return action.payload;
+        case types.START_EDIT_TODO:
+            return fromJS(action.payload);
+        case types.CANCEL_EDIT_TODO:
+            return state.clear();
         default:
             return state;
     }
