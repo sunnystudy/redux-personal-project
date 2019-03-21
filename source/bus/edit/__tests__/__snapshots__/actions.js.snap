@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`edit actions:  startEditTodo 1`] = `
+Object {
+  "payload": Object {
+    "completed": false,
+    "favorite": false,
+    "id": "TEST_ID",
+    "message": "TEST_MESSAGE",
+  },
+  "type": "START_EDIT_TODO",
+}
+`;
+
+exports[`edit actions:  stopEditTodo 1`] = `
+Object {
+  "type": "STOP_EDIT_TODO",
+}
+`;
