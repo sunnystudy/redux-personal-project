@@ -1,10 +1,10 @@
 //Core
-import { put, apply } from 'redux-saga/effects';
+import { put, apply } from "redux-saga/effects";
 
 // Instruments
-import { api } from '../../../../REST';
-import { todosActions } from '../../actions';
-import { uiActions } from '../../../ui/actions';
+import { api } from "../../../../REST";
+import { todosActions } from "../../actions";
+import { uiActions } from "../../../ui/actions";
 
 export function* createTodo ({ payload: todoMessage }) {
     try {
@@ -18,7 +18,7 @@ export function* createTodo ({ payload: todoMessage }) {
         }
         yield put(todosActions.createTodo(todo));
     } catch (error) {
-        yield put(uiActions.emitError(error, 'createTodo worker'));
+        yield put(uiActions.emitError(error, "createTodo worker"));
     } finally {
         yield put(uiActions.stopFetching());
     }

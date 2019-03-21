@@ -1,10 +1,10 @@
 //Core
-import { put, apply } from 'redux-saga/effects';
+import { put, apply } from "redux-saga/effects";
 
 // Instruments
-import { api } from '../../../../REST';
-import { todosActions } from '../../actions';
-import { uiActions } from '../../../ui/actions';
+import { api } from "../../../../REST";
+import { todosActions } from "../../actions";
+import { uiActions } from "../../../ui/actions";
 
 export function* fetchTodos () {
     try {
@@ -19,7 +19,7 @@ export function* fetchTodos () {
 
         yield put(todosActions.fillTodos(todos));
     } catch (error) {
-        yield put(uiActions.emitError(error, 'fetchTodos worker'));
+        yield put(uiActions.emitError(error, "fetchTodos worker"));
     } finally {
         yield put(uiActions.stopFetching());
     }

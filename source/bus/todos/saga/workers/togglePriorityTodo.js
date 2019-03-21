@@ -1,10 +1,10 @@
 //Core
-import { put, apply } from 'redux-saga/effects';
+import { put, apply } from "redux-saga/effects";
 
 // Instruments
-import { api } from '../../../../REST';
-import { todosActions } from '../../actions';
-import { uiActions } from '../../../ui/actions';
+import { api } from "../../../../REST";
+import { todosActions } from "../../actions";
+import { uiActions } from "../../../ui/actions";
 
 export function* togglePriorityTodo ({ payload: newTodoData }) {
     try {
@@ -18,7 +18,7 @@ export function* togglePriorityTodo ({ payload: newTodoData }) {
         }
         yield put(todosActions.togglePriorityTodo(todo[0]));
     } catch (error) {
-        yield put(uiActions.emitError(error, 'togglePriorityTodo worker'));
+        yield put(uiActions.emitError(error, "togglePriorityTodo worker"));
     } finally {
         yield put(uiActions.stopFetching());
     }

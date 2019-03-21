@@ -31,17 +31,6 @@ const query = 'test';
 
 const todoMessage = 'message';
 
-const singleTodo = {
-    "data": [
-        {
-            "id":        "xjh",
-            "message":   "Успешно пройти React-интенсив компании Lectrum",
-            "completed": false,
-            "favorite":  false,
-        }
-    ],
-};
-
 const todosList = {
     "data": [
         {
@@ -101,7 +90,6 @@ const fetchResponseFail400 = {
 
 global.__ = {
     todo,
-    singleTodo,
     todosList,
     errorMessage,
     token,

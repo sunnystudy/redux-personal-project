@@ -1,8 +1,8 @@
 //Core
-import { Map } from 'immutable';
+import { Map } from "immutable";
 
 //Types
-import { types } from './types';
+import { types } from "./types";
 
 const initialState = Map({
     isFetching: false,
@@ -11,9 +11,9 @@ const initialState = Map({
 export const uiReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.START_FETCHING:
-            return state.set('isFetching', true);
+            return state.set("isFetching", true);
         case types.STOP_FETCHING:
-            return state.set('isFetching', false);
+            return state.set("isFetching", false);
         default:
             return state;
     }

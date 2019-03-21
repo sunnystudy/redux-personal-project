@@ -1,11 +1,19 @@
 //Core
-import { takeEvery, all, call } from 'redux-saga/effects';
+import { takeEvery, all, call } from "redux-saga/effects";
 
 //Types
 import { types } from "../types";
 
 //Workers
-import { fetchTodos, createTodo, removeTodo, updateTodo, togglePriorityTodo, toggleCompletedTodo, allCompletedTodos } from './workers';
+import {
+    fetchTodos,
+    createTodo,
+    removeTodo,
+    updateTodo,
+    togglePriorityTodo,
+    toggleCompletedTodo,
+    allCompletedTodos
+} from "./workers";
 
 function* watchFetchTodos () {
     yield takeEvery(types.FETCH_TODOS_ASYNC, fetchTodos);
@@ -36,5 +44,13 @@ function* watchAllCompletedTodos () {
 }
 
 export function* watchTodos () {
-    yield all([call(watchFetchTodos), call(watchCreateTodo), call(watchRemoveTodo), call(watchUpdateTodo), call(watchTogglePriorityTodo), call(watchToggleCompletedTodo), call(watchAllCompletedTodos)]);
+    yield all([
+        call(watchFetchTodos),
+        call(watchCreateTodo),
+        call(watchRemoveTodo),
+        call(watchUpdateTodo),
+        call(watchTogglePriorityTodo),
+        call(watchToggleCompletedTodo),
+        call(watchAllCompletedTodos)
+    ]);
 }

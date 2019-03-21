@@ -1,10 +1,10 @@
 //Core
-import { put, apply } from 'redux-saga/effects';
+import { put, apply } from "redux-saga/effects";
 
 // Instruments
-import { api } from '../../../../REST';
-import { todosActions } from '../../actions';
-import { uiActions } from '../../../ui/actions';
+import { api } from "../../../../REST";
+import { todosActions } from "../../actions";
+import { uiActions } from "../../../ui/actions";
 
 export function* allCompletedTodos ({ payload: allTodos }) {
     try {
@@ -18,7 +18,7 @@ export function* allCompletedTodos ({ payload: allTodos }) {
         }
         yield put(todosActions.allCompletedTodos(todos));
     } catch (error) {
-        yield put(uiActions.emitError(error, 'allCompletedTodos worker'));
+        yield put(uiActions.emitError(error, "allCompletedTodos worker"));
     } finally {
         yield put(uiActions.stopFetching());
     }

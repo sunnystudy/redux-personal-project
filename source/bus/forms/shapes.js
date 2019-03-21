@@ -1,9 +1,9 @@
 // Core
-import { object, string } from 'yup';
+import { object, string } from "yup";
 
 export const todoShape = {
     shape: {
-        todoText: '',
+        todoText: "",
     },
     schema: object().shape({
         todoText: string()

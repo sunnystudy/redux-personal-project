@@ -5,7 +5,7 @@ export const api = {
     todos: {
         fetch () {
             return fetch(`${MAIN_URL}/`, {
-                method:  'GET',
+                method:  "GET",
                 headers: {
                     Authorization: TOKEN,
                 },
@@ -13,17 +13,17 @@ export const api = {
         },
         create (message) {
             return fetch(`${MAIN_URL}/`, {
-                method:  'POST',
+                method:  "POST",
                 headers: {
                     Authorization:  TOKEN,
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ message }),
             });
         },
         remove (todoId) {
             return fetch(`${MAIN_URL}/${todoId}`, {
-                method:  'DELETE',
+                method:  "DELETE",
                 headers: {
                     Authorization: TOKEN,
                 },
@@ -31,10 +31,10 @@ export const api = {
         },
         update (todo) {
             return fetch(`${MAIN_URL}/`, {
-                method:  'PUT',
+                method:  "PUT",
                 headers: {
                     Authorization:  TOKEN,
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(todo),
             });

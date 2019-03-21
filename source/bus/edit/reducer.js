@@ -1,5 +1,5 @@
 //Core
-import { fromJS, Map } from 'immutable';
+import { fromJS, Map } from "immutable";
 
 //Types
 import { types } from "./types";

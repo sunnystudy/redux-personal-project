@@ -1,10 +1,10 @@
 //Core
-import { put, apply } from 'redux-saga/effects';
+import { put, apply } from "redux-saga/effects";
 
 // Instruments
-import { api } from '../../../../REST';
-import { todosActions } from '../../actions';
-import { uiActions } from '../../../ui/actions';
+import { api } from "../../../../REST";
+import { todosActions } from "../../actions";
+import { uiActions } from "../../../ui/actions";
 
 export function* removeTodo ({ payload: todoId }) {
     try {
@@ -20,7 +20,7 @@ export function* removeTodo ({ payload: todoId }) {
 
         yield put(todosActions.removeTodo(todoId));
     } catch (error) {
-        yield put(uiActions.emitError(error, 'removeTodo worker'));
+        yield put(uiActions.emitError(error, "removeTodo worker"));
     } finally {
         yield put(uiActions.stopFetching());
     }

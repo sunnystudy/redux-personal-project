@@ -1,10 +1,10 @@
 //Core
-import { put, apply } from 'redux-saga/effects';
+import { put, apply } from "redux-saga/effects";
 
 // Instruments
-import { api } from '../../../../REST';
-import { todosActions } from '../../actions';
-import { uiActions } from '../../../ui/actions';
+import { api } from "../../../../REST";
+import { todosActions } from "../../actions";
+import { uiActions } from "../../../ui/actions";
 
 export function* toggleCompletedTodo ({ payload: newTodoData }) {
     try {
@@ -18,7 +18,7 @@ export function* toggleCompletedTodo ({ payload: newTodoData }) {
         }
         yield put(todosActions.toggleCompletedTodo(todo[0]));
     } catch (error) {
-        yield put(uiActions.emitError(error, 'toggleCompletedTodo worker'));
+        yield put(uiActions.emitError(error, "toggleCompletedTodo worker"));
     } finally {
         yield put(uiActions.stopFetching());
     }

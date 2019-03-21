@@ -1,23 +1,21 @@
 // Core
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
 // Instruments
-import Styles from './styles.m.css';
+import Styles from "./styles.m.css";
 
 const mapStateToProps = (state) => {
     return {
-        isSpinning: state.ui.get('isFetching'),
+        isSpinning: state.ui.get("isFetching"),
     };
 };
 
 @connect(mapStateToProps)
-
 export default class Spinner extends Component {
-    render () {
+    render() {
         const { isSpinning } = this.props;
 
-        return isSpinning ? <div className = { Styles.spinner } /> : null;
+        return isSpinning ? <div className={Styles.spinner} /> : null;
     }
 }

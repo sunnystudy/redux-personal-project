@@ -1,7 +1,4 @@
 //Core
-import { combineForms } from 'react-redux-form';
+import { combineForms } from "react-redux-form";
 
-export const formsReducer = combineForms(
-    { },
-    'forms'
-);
+export const formsReducer = combineForms({}, "forms");
